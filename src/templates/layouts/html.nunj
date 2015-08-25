@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title | default('Default page title') }}</title>
+
+    {% block scripts %}
+    <script src="/build/main.js"></script>
+    {% endblock %}
+</head>
+<body></body>
+</html>
