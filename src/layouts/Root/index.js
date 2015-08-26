@@ -12,6 +12,10 @@ export default Marionette.LayoutView.extend({
         header: '[data-region="root-header"]',
         content: '[data-region="root-content"]',
         footer: '[data-region="root-footer"]'
+    },
+
+    initialize () {
+        this.$el.attr('data-layout', 'Root');
     }
 
 });
