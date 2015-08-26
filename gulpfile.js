@@ -6,10 +6,9 @@ var config = require('./config');
 gulp.task('server', function (done) {
     var hasRun = false;
     nodemon({
-        script: 'src/server',
+        script: 'src/dev-server',
         watch: [
-            './src/server',
-            './src/templates'
+            './src/dev-server'
         ],
         ext: 'js,nunj'
     })

@@ -9,7 +9,7 @@ var path = require('path');
 var app = express();
 var config = require('../../config');
 
-nunjucks.configure(path.join(process.cwd(), 'src', 'templates'), { express: app });
+nunjucks.configure(path.join(__dirname, 'templates'), { express: app });
 
 // Proxy requests for webpack assets from the express server to the webpack dev server
 app.all('/build/*', function (req, res) {
@@ -18,7 +18,7 @@ app.all('/build/*', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.render('pages/simple-page.nunj', {
+    res.render('html.nunj', {
         title: 'Homepage title'
     });
 });
