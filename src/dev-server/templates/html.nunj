@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>{{ title | default('Default page title') }}</title>
 
+    <link href="/build/styles.css" rel="stylesheet" type="text/css">
+
     {% block scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="/build/vendor.js"></script>

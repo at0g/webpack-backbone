@@ -1,8 +1,9 @@
 /*eslint-env node */
-
+var autoprefixer = require('autoprefixer');
 var path = require('path');
 var webpack = require('webpack');
 var config = require('./config');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -47,8 +48,22 @@ module.exports = {
                 test: /\.(html|nunj|nunjucks)?$/,
                 exclude: /node_modules/,
                 loader: 'nunjucks'
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract('css?sourceMap!postcss!less?sourceMap')
+            },
+            {
+                test: /\.(jpg|png|eot|svg|ttf|woff|woff2)$/,
+                loader: 'url'
             }
         ]
+    },
+
+    postcss: function () {
+        return [
+            autoprefixer
+        ];
     },
 
     resolve: {
@@ -80,6 +95,8 @@ module.exports = {
     plugins: [
         // Required for the express proxy to use hot module replacement
         new webpack.HotModuleReplacementPlugin(),
+
+        new ExtractTextPlugin('styles.css'),
 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',

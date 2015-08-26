@@ -1,7 +1,9 @@
+import css from './main.less';
 import domReady from 'detect-dom-ready';
 import Marionette from 'marionette';
 import Application from 'Application';
 import RootView from 'views/Root';
+
 
 // Override the Marionette renderer to call template.render so
 // that it works with nunjucks-loader templates.
