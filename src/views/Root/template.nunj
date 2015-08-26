@@ -1,0 +1,11 @@
+<header data-region="root-header">
+    Root header region
+</header>
+
+<section data-region="root-content">
+    Root content region
+</section>
+
+<footer data-region="root-footer">
+    Root footer region
+</footer>

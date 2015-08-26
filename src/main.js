@@ -1,7 +1,17 @@
 import domReady from 'detect-dom-ready';
+import Marionette from 'marionette';
+import Application from 'Application';
+import RootView from 'views/Root';
 
+// Override the Marionette renderer to call template.render so
+// that it works with nunjucks-loader templates.
+Marionette.Renderer.render = function(template, data) {
+    return template.render(data);
+};
+
+// Write to the DOM once it's ready
 domReady(() => {
-    var message = document.createElement('p');
-    message.innerHTML = 'Hello - you\'ve connected to an express app that proxies the webpack-dev-server';
-    document.body.appendChild(message);
+    let app = new Application();
+    app.rootView = new RootView().render();
+    app.start();
 });
