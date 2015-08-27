@@ -23,7 +23,7 @@ module.exports = {
         vendor: [
             'lodash',
             'marionette',
-            'nunjucks',
+            'nunjucks/browser/nunjucks-slim',
             'wreqr'
         ]
     },
