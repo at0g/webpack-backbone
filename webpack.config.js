@@ -28,20 +28,25 @@ module.exports = {
         ]
     },
 
+    // Send output to the express development server
     output: {
-        path: path.resolve(__dirname, 'public', 'build'),
+        path: config.outputPath,
         filename: '[name].js',
         publicPath: config.publicPath
     },
 
     module: {
 
+        // Reduce compilation time by telling webpack to not parse these libraries.
+        // Only add libraries that have no dependencies eg. no require, define or similar calls.
         noParse: [
+            /detect\-dom\-ready/,
             /lodash/,
             /nunjucks\-slim/
         ],
 
         loaders: [
+            // Transpile JS with babel
             {
                 test: /\.(js|jsx|es6)?$/,
                 exclude: /node_modules/,
@@ -50,21 +55,28 @@ module.exports = {
                     stage: 0
                 }
             },
+
+            // Load nunjucks templates
             {
                 test: /\.(html|nunj|nunjucks)?$/,
                 exclude: /node_modules/,
                 loader: 'nunjucks'
             },
+
+            // Compile less with postcss and extract the generated css to an external file
+            // @see The plugins section of this file.
             {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract('css?sourceMap!postcss!less?sourceMap')
             },
+
+            // Use the url loader for fonts and images.
             {
                 test: /\.(jpg|png|eot|svg|ttf|woff|woff2)$/,
                 loader: 'url'
             },
 
-            // Expose Marionette as a window global, so that the chrome marionette extension locates it.
+            // Expose Marionette as a window global, so that the chrome marionette extension can locate it.
             {
                 test: require.resolve('backbone.marionette'),
                 loader: 'expose?Marionette'
@@ -72,6 +84,7 @@ module.exports = {
         ]
     },
 
+    // Postcss options
     postcss: function () {
         return [
             autoprefixer
@@ -82,23 +95,27 @@ module.exports = {
 
         root: __dirname,
 
+        // Resolve extensionless files with the list below.
+        // Eg. require('foo') will resolve to 'foo.js', 'foo/index.jsx' etc.
         extensions: ['', '.js', '.jsx', '.es6'],
 
+        // Add the src directory as a modules location
         modulesDirectories: [
             'src',
             'node_modules'
         ],
 
         alias: {
-            // Alias backbone to the marionette dependency
+            // Alias backbone to the version installed as a dependency of marionette
             backbone: 'backbone.marionette/node_modules/backbone/backbone.js',
-            // Alias backbone.wreqr to the marionette dependency
+
+            // Alias backbone.wreqr to the version installed as a dependency of marionette
             'backbone.wreqr': 'backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js',
 
-            // Alias marionette to backbone.marionette to save typing in imports
+            // Alias marionette to backbone.marionette to reduce the amount of typing in import statements
             marionette: 'backbone.marionette',
 
-            // Alias wreqr to backbone.wreqr to save typing in imports
+            // Alias wreqr to backbone.wreqr to reduce the amount of typing in import statements
             wreqr: 'backbone.wreqr'
         }
 
@@ -109,6 +126,7 @@ module.exports = {
         jquery: 'jQuery'
     },
 
+    // Generate source maps
     devtool: 'source-map',
 
     plugins: [
@@ -118,8 +136,10 @@ module.exports = {
         // Use lodash in place of underscore
         new webpack.NormalModuleReplacementPlugin(/underscore/, 'lodash'),
 
+        // Write CSS to a styles.css file
         new ExtractTextPlugin('styles.css'),
 
+        // Create an explicit vendor commons chunk
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: Infinity

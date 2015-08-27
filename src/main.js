@@ -4,14 +4,12 @@ import Marionette from 'marionette';
 import Application from 'Application';
 import RootLayout from 'layouts/Root';
 
-
-// Override the Marionette renderer to call template.render so
-// that it works with nunjucks-loader templates.
+// Override the default Marionette renderer to call template.render() to work with nunjucks-loader templates.
 Marionette.Renderer.render = function(template, data) {
     return template.render(data);
 };
 
-// Write to the DOM once it's ready
+// Render the rootView to the body once the DOM is ready.
 domReady(() => {
     let app = new Application();
     app.rootView = new RootLayout().render();
