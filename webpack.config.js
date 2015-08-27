@@ -90,8 +90,16 @@ module.exports = {
         ],
 
         alias: {
-            wreqr: 'backbone.wreqr',
-            marionette: 'backbone.marionette'
+            // Alias backbone to the marionette dependency
+            backbone: 'backbone.marionette/node_modules/backbone/backbone.js',
+            // Alias backbone.wreqr to the marionette dependency
+            'backbone.wreqr': 'backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js',
+
+            // Alias marionette to backbone.marionette to save typing in imports
+            marionette: 'backbone.marionette',
+
+            // Alias wreqr to backbone.wreqr to save typing in imports
+            wreqr: 'backbone.wreqr'
         }
 
     },
@@ -102,8 +110,6 @@ module.exports = {
     },
 
     devtool: 'source-map',
-
-    cache: true,
 
     plugins: [
         // Required for the express proxy to use HMR
