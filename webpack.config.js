@@ -56,6 +56,12 @@ module.exports = {
             {
                 test: /\.(jpg|png|eot|svg|ttf|woff|woff2)$/,
                 loader: 'url'
+            },
+
+            // Expose Marionette as a window global, so that the chrome marionette extension locates it.
+            {
+                test: require.resolve('backbone.marionette'),
+                loader: 'expose?Marionette'
             }
         ]
     },
