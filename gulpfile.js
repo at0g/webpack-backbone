@@ -55,9 +55,13 @@ gulp.task('build-server', ['webpack:build'], function (done) {
 gulp.task('webpack:build', ['clean:build'], function(callback) {
     // run webpack
     webpack(webpackConfig, function(err, stats) {
-        if(err) throw new gutil.PluginError('webpack:build', err);
+        if(err) {
+            throw new gutil.PluginError('webpack:build', err);
+        }
+
         gutil.log('[webpack:build]', stats.toString({
-            colors: true
+            colors: true,
+            modulesSort: 'size'
         }));
         callback();
     });

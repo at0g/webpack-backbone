@@ -21,10 +21,10 @@ module.exports = {
         // Create an explicit vendor chunk for long-term caching of vendor libraries.
         // See the commons chunk definition in the plugins section of this file.
         vendor: [
-            'lodash',
+            'detect-dom-ready',
             'marionette',
-            'nunjucks/browser/nunjucks-slim',
-            'wreqr'
+            'nunjucks-loader/runtime-shim',
+            'nunjucks/browser/nunjucks-slim'
         ]
     },
 
@@ -35,6 +35,12 @@ module.exports = {
     },
 
     module: {
+
+        noParse: [
+            /lodash/,
+            /nunjucks\-slim/
+        ],
+
         loaders: [
             {
                 test: /\.(js|jsx|es6)?$/,
@@ -84,9 +90,8 @@ module.exports = {
         ],
 
         alias: {
-            marionette: 'backbone.marionette',
             wreqr: 'backbone.wreqr',
-            underscore: 'lodash' // Use lodash rather than underscore
+            marionette: 'backbone.marionette'
         }
 
     },
@@ -98,9 +103,14 @@ module.exports = {
 
     devtool: 'source-map',
 
+    cache: true,
+
     plugins: [
-        // Required for the express proxy to use hot module replacement
+        // Required for the express proxy to use HMR
         new webpack.HotModuleReplacementPlugin(),
+
+        // Use lodash in place of underscore
+        new webpack.NormalModuleReplacementPlugin(/underscore/, 'lodash'),
 
         new ExtractTextPlugin('styles.css'),
 
