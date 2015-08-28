@@ -21,7 +21,6 @@ module.exports = {
         // Create an explicit vendor chunk for long-term caching of vendor libraries.
         // See the commons chunk definition in the plugins section of this file.
         vendor: [
-            'detect-dom-ready',
             'marionette',
             'nunjucks-loader/runtime-shim',
             'nunjucks/browser/nunjucks-slim'
@@ -40,7 +39,6 @@ module.exports = {
         // Reduce compilation time by telling webpack to not parse these libraries.
         // Only add libraries that have no dependencies eg. no require, define or similar calls.
         noParse: [
-            /detect\-dom\-ready/,
             /lodash/,
             /nunjucks\-slim/
         ],
