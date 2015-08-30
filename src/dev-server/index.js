@@ -24,10 +24,8 @@ else {
     app.use(config.publicPath, expressStatic(config.outputPath) );
 }
 
-app.get('/', function (req, res) {
-    res.render('html.nunj', {
-        title: 'Homepage title'
-    });
+app.get('/*', function (req, res) {
+    res.render('html.nunj');
 });
 
 app.listen(config.port, function () {

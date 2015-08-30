@@ -20,8 +20,8 @@ This is an example of building a Backbone.Marionette app with webpack.
 `npm install`
 
 By default, build files will be created within a *public/build* directory and the local development server will run on
-[http://localhost:3000]. These settings can be changed to suit the local environment - see the `config` directory for options.
-
+ [http://localhost:3000].
+ These settings can be changed to suit the local environment - see the `config` directory for options..
 
 ## Workflow
 
