@@ -14,10 +14,13 @@ export default Marionette.Application.extend({
     },
 
     onStart () {
-        Backbone.history.start({ pushState: true });
+        let routeExists = Backbone.history.start({ pushState: true });
+        if (!routeExists) {
+            Backbone.history.navigate('/404', { replace: true, trigger: true });
+        }
     },
 
-    showHome () {
+    home () {
         require.ensure([], () => {
             var BasicPage = require('views/BasicPage');
             var homeView = new BasicPage({
@@ -29,7 +32,7 @@ export default Marionette.Application.extend({
         });
     },
 
-    showAbout () {
+    about () {
         require.ensure([], () => {
             var BasicPage = require('views/BasicPage');
             var aboutView = new BasicPage({
@@ -38,6 +41,18 @@ export default Marionette.Application.extend({
                 })
             });
             this.rootView.content.show(aboutView);
+        });
+    },
+
+    notFound () {
+        require.ensure([], () => {
+            var BasicPage = require('views/BasicPage');
+            var notFoundView = new BasicPage({
+                model: new Backbone.Model({
+                    title: '404 - Not found'
+                })
+            });
+            this.rootView.content.show(notFoundView);
         });
     }
 
