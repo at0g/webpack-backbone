@@ -45,3 +45,38 @@ This task uses the `webpack.dist.js` config file to create a production build an
 As the task writes output stats to the terminal, it can be useful to see the final sizes of optimised bundles, along
  with providing a way to preview the bundle easily on a local server.
 
+
+## Project stucture
+
+Source files are located in the `src` directory. Distribution files are written to `public/build`.
+
+Note that `src` is declared as a modules root in the webpack config, allowing the `src` part of the path can be omitted.
+ Eg. `src/main.js` can simply be referenced as `main`.
+
+The projects source files are organised by component in most cases, rather than type - where suitable each component
+ is a directory with its dependencies contained within, as opposed to separate `templates` and `css` directories.
+ As an example, consider the `src/views/Navbar` directory.
+
+When `views/Navbar` is imported or required in source code, webpack resolves the reference as
+ `src/views/Navbar/index.js`, which exports the view constructor.
+
+The dependencies of the Navbar (css and template) are declared within the same directory to keep the component as
+ modular as possible - these dependencies are required by the index file, ensuring they are added to the build if the
+ component is included. If the view is no longer included in the build, it's dependencies are omitted with no further
+ work on behalf of the developer.
+
+
+### A note on CSS
+
+The webpack extract text plugin is used to combine CSS dependencies into an external css file. While this is generally
+ a useful approach to bundling the CSS (as it's the only method to support sourcemaps), there are some gotchas to be
+ aware of:
+
+The CSS that makes up the file is bundled based on the order of module inclusion. What this means if that if a style
+ declaration must be in a specific order, it may not behave as expected.
+
+If multiple modules require the same resource, such as `bootstrap/less/forms.less`, each modules exported CSS will
+ contain the rules (creating duplication). Referring back to the `Navbar` example, the `styles.less` file imports
+ `forms.less` and `utilities.less` using `import (reference) 'path/to/file.less'` to mitigate the effect of this
+ behaviour on the result files size.
+
