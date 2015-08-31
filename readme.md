@@ -27,7 +27,8 @@ By default, build files will be created within a *public/build* directory and th
 
 ### Default development workflow
 
-Run `gulp` to run the default development server and then navigate to [http://localhost:3000] with a web browser.
+Run `gulp` to run the default development server and then navigate to [localhost:3000](http://localhost:3000) with a web
+ browser.
 
 This task runs an express server that proxies the webpack-dev-server bundle and supports hot module replacement.
 While the configuration is more complex than running `webpack-dev-server` directly, the express server provides
@@ -36,7 +37,8 @@ While the configuration is more complex than running `webpack-dev-server` direct
 
 ### Build preview
 
-Run `gulp dev-build` to create an optimised build and then navigate to [http://localhost:3000] with a web browser.
+Run `gulp dev-build` to create an optimised build and then navigate to [localhost:3000](http://localhost:3000) with a
+ web browser.
 
 This task uses the `webpack.dist.js` config file to create a production build and writes the built files to disk.
  The development express server then serves the files as static assets so they can be previewed.
