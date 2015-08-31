@@ -6,7 +6,7 @@ import RootLayout from 'layouts/Root';
 export default Marionette.Application.extend({
 
     initialize () {
-        this.rootView = new RootLayout().render()
+        this.rootView = new RootLayout().render();
 
         this.router = new AppRouter({
             controller: this

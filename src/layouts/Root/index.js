@@ -2,6 +2,7 @@ import css from './style.less';
 import Marionette from 'marionette';
 import tpl from './template.nunj';
 import Navbar from 'views/Navbar';
+import Fader from 'regions/Fader';
 
 export default Marionette.LayoutView.extend({
 
@@ -11,7 +12,10 @@ export default Marionette.LayoutView.extend({
 
     regions: {
         header: '[data-region="root-header"]',
-        content: '[data-region="root-content"]',
+        content: {
+            selector: '[data-region="root-content"]',
+            regionClass: Fader
+        },
         footer: '[data-region="root-footer"]'
     },
 

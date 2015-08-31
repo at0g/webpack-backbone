@@ -1,0 +1,38 @@
+[data-region-type="Fader"] {
+  position: relative;
+
+  > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.fader--fade-in {
+  animation: fadein 600ms;
+  animation-fill-mode: both;
+}
+
+.fader--fade-out {
+  animation: fadeout 600ms;
+  animation-fill-mode: both;
+}
+
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
