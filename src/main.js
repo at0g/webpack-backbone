@@ -8,6 +8,13 @@ Marionette.Renderer.render = function(template, data) {
     return template.render(data);
 };
 
+// Normalise the URL, removing the trailing slash if present.
+let path = window.location.pathname;
+let hasTrailingSlash = /\/$/;
+if (path.length > 1 && hasTrailingSlash.test(path)) {
+    window.location.pathname = path.replace(hasTrailingSlash, '');
+}
+
 
 // Run the application once the DOM is ready
 $(() => {
