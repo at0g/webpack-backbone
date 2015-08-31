@@ -1,0 +1,5 @@
+<header data-region="root-header"></header>
+
+<section data-region="root-content"></section>
+
+<footer data-region="root-footer"></footer>

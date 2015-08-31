@@ -1,0 +1,8 @@
+<article class="container">
+    <header class="row">
+        <div class="col-xs-12">
+            <h1 class="page-header">{{ title }}</h1>
+        </div>
+    </header>
+
+</article>

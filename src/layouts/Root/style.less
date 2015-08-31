@@ -1,0 +1,21 @@
+// Stretch the height of the content region to fill the available viewport height.
+// If the header + content + footer heights are greater than the viewport height, scroll normally.
+// @see https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+[data-region="root-header"],
+[data-region="root-footer"] {
+  flex: 0 0 auto;
+}
+
+[data-region="root-content"] {
+  flex: 1 0 auto;
+}
