@@ -1,10 +1,13 @@
 import Backbone from 'backbone';
 import Marionette from 'marionette';
 import AppRouter from 'routes/root';
+import RootLayout from 'layouts/Root';
 
 export default Marionette.Application.extend({
 
     initialize () {
+        this.rootView = new RootLayout().render()
+
         this.router = new AppRouter({
             controller: this
         });
@@ -15,11 +18,27 @@ export default Marionette.Application.extend({
     },
 
     showHome () {
-        console.log('show home page');
+        require.ensure([], () => {
+            var BasicPage = require('views/BasicPage');
+            var homeView = new BasicPage({
+                model: new Backbone.Model({
+                    title: 'Home page'
+                })
+            });
+            this.rootView.content.show(homeView);
+        });
     },
 
     showAbout () {
-        console.log('show about page');
+        require.ensure([], () => {
+            var BasicPage = require('views/BasicPage');
+            var aboutView = new BasicPage({
+                model: new Backbone.Model({
+                    title: 'About page'
+                })
+            });
+            this.rootView.content.show(aboutView);
+        });
     }
 
 });
