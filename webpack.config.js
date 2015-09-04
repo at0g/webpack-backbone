@@ -2,9 +2,12 @@
 var autoprefixer = require('autoprefixer');
 var path = require('path');
 var webpack = require('webpack');
+var url = require('url');
 var config = require('./config');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var historyApiFallback = require('connect-history-api-fallback');
+
 
 module.exports = {
 
@@ -133,7 +136,10 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
 
         new BrowserSyncPlugin({
-            proxy: 'localhost:' + config.port
+            proxy: 'localhost:' + config.port,
+            middleware: [
+                historyApiFallback()
+            ]
         }, {
             reload: false
         }),

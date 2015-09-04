@@ -14,7 +14,7 @@ export default Marionette.Application.extend({
     },
 
     onStart () {
-        let routeExists = Backbone.history.start({ pushState: true });
+        let routeExists = Backbone.history.start({ pushState: false });
         if (!routeExists) {
             Backbone.history.navigate('/404', { replace: true, trigger: true });
         }
