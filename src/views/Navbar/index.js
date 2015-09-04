@@ -34,7 +34,7 @@ export default Marionette.ItemView.extend({
     },
 
     updateActiveLinkState () {
-        var path = window.location.pathname;
+        var path = window.location.hash;
         this.$el.find('.navbar-nav .active').removeClass('active');
         this.$el.find(`.navbar-nav a[href="${path}"]`).closest('li').addClass('active');
     }
