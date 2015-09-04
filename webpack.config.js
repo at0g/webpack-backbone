@@ -3,6 +3,7 @@ var autoprefixer = require('autoprefixer');
 var path = require('path');
 var webpack = require('webpack');
 var config = require('./config');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -130,6 +131,12 @@ module.exports = {
     plugins: [
         // Required for the express proxy to use HMR
         new webpack.HotModuleReplacementPlugin(),
+
+        new BrowserSyncPlugin({
+            proxy: 'localhost:' + config.port
+        }, {
+            reload: false
+        }),
 
         // Use lodash in place of underscore
         new webpack.NormalModuleReplacementPlugin(/underscore/, 'lodash'),
