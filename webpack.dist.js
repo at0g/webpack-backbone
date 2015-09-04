@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var _ = require('lodash')
+var _ = require('lodash');
 var devConfig = require('./webpack.config');
 
 var distConfig = _.extend({}, devConfig);
@@ -29,8 +29,13 @@ distConfig.plugins = distConfig.plugins.concat(
             'NODE_ENV': JSON.stringify('production')
         }
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(true),
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    }),
+    new webpack.optimize.DedupePlugin()
 );
 
 
