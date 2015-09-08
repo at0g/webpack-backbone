@@ -10,7 +10,7 @@ var webpackConfig = require(pathToWebpackConfig);
 
 module.exports = function () {
 
-    // First we fire up webpack, passing int the webpack config
+    // First we fire up webpack, passing in the webpack config
     var compiler = webpack(webpackConfig);
 
     var bundleStart = null;
@@ -27,10 +27,13 @@ module.exports = function () {
     });
 
     var bundler = new WebpackDevServer(compiler, {
+
         // We need to tell Webpack to serve our bundled application
         // from the build path.
         // http://localhost:PORT/build -> http://localhost:WEBPACK_PORT/build
         publicPath: config.publicPath,
+
+        port: config.webpack_port,
 
         // Configure hot replacement
         hot: true,
@@ -45,6 +48,7 @@ module.exports = function () {
 
     // Start up the development server and give notice in the terminal of beginning the initial bundle
     bundler.listen(config.webpackPort, 'localhost', function () {
+        console.log('Webpack Dev Server running on port %s', config.webpackPort);
         console.log('Bundling project, please wait...');
     });
 
